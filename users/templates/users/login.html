@@ -15,6 +15,7 @@
 						</div>
 						<form method="POST" class="signin-form">
 							<input type="hidden" name="csrfmiddlewaretoken" value="al2vqNtXrG6KSGtfSrPzygj7I9KRo6JHSATcGVLmDfPH0Ragl9VoqqiL9XmGCXXZ">
+							{% csrf_token %}
 							<div class="form-group mb-3">
 								<label class="label" for="name">Username</label>
 								<input type="text" class="form-control" placeholder="Username" required="">
@@ -34,7 +35,7 @@
 								<div class="w-50 text-md-right"></div>
 							</div>
 						</form>
-						<p class="text-center">Not a member? <a data-toggle="tab" href="#signup" id="signin">Sign Up</a></p>
+						<p class="text-center">Not a member? <a  href="{% url 'register' %}" id="signin">Sign Up</a></p>
 					</div>
 				</div>
 			</div>
