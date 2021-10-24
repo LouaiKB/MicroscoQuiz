@@ -21,11 +21,11 @@
 <body>
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+            <div class="alert alert-warning alert-dismissible fade show" style="margin-bottom: 0px" role="alert">
+                <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
                 <strong>Success: </strong> {{message}}
             </div>
-        {% endfor %}
+        {% endfor %} 
     {% endif %}
     {% block content %}{% endblock  %}
     <script src={% static 'registration\js\main.js' %}></script>

@@ -4,17 +4,29 @@
 <div class="hero">
         <nav class="nav-home">
             <img src={% static 'biologicalquizapp\MicroscoQuizz.png' %} alt="MicroscoQuiz" class="menu-img">
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="">Explore</a></li>
-                <li><a href="{% url 'login' %}">SignIn/SignUp</a></li>
-            </ul>
+            {% if user.is_authenticated %}
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="">Explore</a></li>
+                    <li><a href="{% url 'logout' %}">logout</a></li>
+                </ul>
+            {% else %}    
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="">Explore</a></li>
+                    <li><a href="{% url 'login' %}">SignIn/SignUp</a></li>
+                </ul>
+            {% endif %}
+        
         </nav>
         <div class="text-container">
             <div class="content">
                 <h1>Microsco<span>Quiz</span></h1>
                 <p>A Microscopy test quiz that allows you to learn by practicing</p>
-                <button class="started-btn">Get started</button>
+                <input type="button" class="started-btn" value="Get started" onclick="location.href={% url 'login' %};">
+                {% comment %} <button class="started-btn">
+                <a style="text-decoration: none; color: white;" href="{% url 'login' %}">Get started</a>
+                </button> {% endcomment %}
             </div>
         </div>
     </div>

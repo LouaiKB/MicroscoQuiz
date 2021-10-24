@@ -1,0 +1,15 @@
+{% extends 'biologicalquizapp\base.html' %}
+{% block content %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
+<script>
+    swal({
+        title: "Logout successful!",
+        text: "You are successfully logged out",
+        icon: "success",
+        button: "home page"
+    }).then(function() {
+        window.location = "{% url 'home' %}";
+    });
+</script>
+
+{% endblock content %}
