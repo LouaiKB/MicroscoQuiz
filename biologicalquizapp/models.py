@@ -11,7 +11,7 @@ class Image(models.Model) :
     organism = models.CharField(max_length=255, null=True)
 
     def __str__(self) -> str:
-        return self.name
+        return str(self.name)
 
 class Question(models.Model):
     question = models.CharField(max_length=255)
@@ -25,7 +25,7 @@ class Question(models.Model):
         return self.question
 
 class Answer(models.Model):
-    question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question_id = models.IntegerField()
     answer = models.CharField(max_length=255)
     definition = models.TextField()
 
