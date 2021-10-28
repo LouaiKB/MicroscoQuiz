@@ -44,16 +44,22 @@
         </header>
         <section>
             <div class="images">
-                <img src="{% static 'data\187.jpg' %}" alt="cell" class="img-option">
-                <img src="{% static 'data\214.jpg' %}" alt="cell" class="img-option">
-                <img src="{% static 'data\219.jpg' %}" alt="cell" class="img-option">
+                {% for image in images %}
+                    <img src="{% static image %}" alt="cell" class="img-option">
+                {% endfor %}
             </div>
             <div class="que_text">
                 {% comment %} <span>What does HTML stand for?</span> {% endcomment %}
                 {{question_1}}
             </div>
             <div class="option_list">
-                <div class="option">
+                {% for answer in answer_1 %}
+                    <div class="option">
+                        <span>{{answer.answer}}</span>
+                        <div class="icon cross"><i class="fas fa-times"></i></div>
+                    </div>
+                {% endfor %}
+                {% comment %} <div class="option">
                     <span>Hyper Text Preprocessor</span>
                     <div class="icon cross"><i class="fas fa-times"></i></div>
                 </div> 
@@ -66,7 +72,7 @@
                 </div>
                 <div class="option">
                     <span>Hyper Tool Multi Language</span>
-                </div>
+                </div> {% endcomment %}
             </div>
         </section>
         <!-- quiz box footer -->

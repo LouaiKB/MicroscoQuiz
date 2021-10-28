@@ -192,8 +192,8 @@ body {
 }
 
 .images .img-option {
-    width: 200px;
-    height: 200px;
+    width: 235px;
+    height: 210px;
     border-radius: 5px;
 }
 
@@ -333,6 +333,10 @@ body {
 }
 
 .quiz_box section .que_text {
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 15px;
     font-weight: 600;
 }
@@ -353,6 +357,7 @@ section .option_list .option {
     justify-content: space-between;
     cursor: pointer;
     transition: all 0.3s ease;
+    /* width: 50%; */
 }
 
 section .option_list .option:hover {
