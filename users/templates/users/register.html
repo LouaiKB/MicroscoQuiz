@@ -1,5 +1,9 @@
 {% extends 'biologicalquizapp\base.html' %}
 {% load static %}
+{% block mycss %}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href={% static 'registration\css\style.css' %}> 
+{% endblock mycss %}
 {% block content %}
 {% if form.errors %}
 	{% for field in form %}

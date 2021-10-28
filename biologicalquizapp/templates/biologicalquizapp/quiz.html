@@ -1,0 +1,100 @@
+{% extends 'biologicalquizapp\base.html' %}
+{% load static %}
+{% block mycss %}
+    <link rel="stylesheet" href="{% static 'biologicalquizapp\style.css' %}"> 
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+{% endblock mycss %}
+{% block content %}
+<!-- start quizz button -->
+    <div class="choose-type">
+        <img src="{% static 'biologicalquizapp\MicroscoQuizz.png' %}" alt="microscoquizimg" class="microscoimg">
+        <p class="quiz-type">Choose a Quiz category<p>
+    </div>
+    <div class="question-chooser">
+        <button class="box" id="microscopy-quiz">{{question_1}}</button>
+        <button class="box" id="feature-quiz">{{question_2}}</button>
+    </div>
+    <div class="start_btn">
+        <button>Start Quiz</button>
+    </div>
+    <div class="info_box">
+        <div class="info_title"><span>Some rules of this quiz</span></div>
+        <div class="info_list">
+            <div class="info">1. You will have only <span>20 seconds</span> per each question.</div>
+            <div class="info">2. Once you select your answer, it can't be undone.</div>
+            <div class="info">3. You can't select any option once time goes off.</div>
+            <div class="info">4. You can't exit from the Quiz while you're playing.</div>
+            <div class="info">5. You'll get points on the basis of your correct answers.</div>
+        </div>
+        <div class="buttons">
+            <button class="quit">Exit button</button>
+            <button class="restart">Continue</button>
+        </div>
+    </div>
+
+    <!-- Quiz box -->
+    <div class="quiz_box">
+        <header>
+            <div class="title">Microscoquiz</div>
+            <div class="timer">
+                <div class="time_text">Time Left</div>
+                <div class="timer_sec">20</div>
+            </div>
+        </header>
+        <section>
+            <div class="images">
+                <img src="{% static 'data\187.jpg' %}" alt="cell" class="img-option">
+                <img src="{% static 'data\214.jpg' %}" alt="cell" class="img-option">
+                <img src="{% static 'data\219.jpg' %}" alt="cell" class="img-option">
+            </div>
+            <div class="que_text">
+                {% comment %} <span>What does HTML stand for?</span> {% endcomment %}
+                {{question_1}}
+            </div>
+            <div class="option_list">
+                <div class="option">
+                    <span>Hyper Text Preprocessor</span>
+                    <div class="icon cross"><i class="fas fa-times"></i></div>
+                </div> 
+                <div class="option">
+                    <span>Hyper Text Markup Language</span>
+                    <div class="icon tick"><i class="fas fa-check"></i></div>
+                </div>
+                <div class="option">
+                    <span>Hyper Text Multiple Language</span>
+                </div>
+                <div class="option">
+                    <span>Hyper Tool Multi Language</span>
+                </div>
+            </div>
+        </section>
+        <!-- quiz box footer -->
+        <footer>
+            <div class="total_que">
+                <span><p>2</p>of<p>5</p>Questions</span>
+            </div>
+            <button class="next_btn">Next Question</button>
+        </footer>
+    </div>
+
+    <!-- Result box --> 
+    <div class="result_box">
+        <div class="icon">
+            <i class="fas fa-crown"></i>
+        </div>
+        <div class="complete_text">You've completed the quiz!</div>
+        <div class="score_text">
+            <span>and sorry, You got only <p>2</p> out of <p>5</p></span>
+        </div>
+        <div class="buttons">
+            <button class="restart">Replay Quiz</button>
+            <button class="quit">Quit quizz</button>
+        </div>
+    </div>
+    <div class="quit-btn">
+        {% comment %} <button class="quit-quiz">Quit quizz</button> {% endcomment %}
+        <input type="button" value="Quit quiz" class="quit-quiz" onclick="location.href={% url 'home' %};">
+    </div>
+    <script src={% static 'biologicalquizapp\js\script.js' %}></script>
+{% endblock content %}
