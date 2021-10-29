@@ -13,20 +13,20 @@ const quit_btn = document.querySelector(".quit-btn");
 
 
 // if microscopy quiz button is clicked
-microscopy_quiz.onclick = () => {
-    logo_paragraph_box.classList.add("deactivate");
-    question_choose.classList.add("deactivate");
-    quit_btn.classList.add("deactivate");
-    start_btn_container.classList.add("activeInfo");
-}
+// microscopy_quiz.onclick = () => {
+//     logo_paragraph_box.classList.add("deactivate");
+//     question_choose.classList.add("deactivate");
+//     quit_btn.classList.add("deactivate");
+//     start_btn_container.classList.add("activeInfo");
+// }
 
 // if feature quiz button is clicked
-feature_quiz.onclick = () => {
-    logo_paragraph_box.classList.add("deactivate");
-    question_choose.classList.add("deactivate");
-    quit_btn.classList.add("deactivate");
-    start_btn_container.classList.add("activeInfo");
-}
+// feature_quiz.onclick = () => {
+//     logo_paragraph_box.classList.add("deactivate");
+//     question_choose.classList.add("deactivate");
+//     quit_btn.classList.add("deactivate");
+//     start_btn_container.classList.add("activeInfo");
+// }
 
 
 // if start button clicked
@@ -36,9 +36,9 @@ start_btn.onclick = () => {
 
 // // hide the info box
 exit_btn.onclick = () => {
-    logo_paragraph_box.classList.remove("deactivate");
-    question_choose.classList.remove("deactivate");
-    quit_btn.classList.remove("deactivate");
+    // logo_paragraph_box.classList.remove("deactivate");
+    // question_choose.classList.remove("deactivate");
+    // quit_btn.classList.remove("deactivate");
     info_box.classList.remove("activeInfo");
     start_btn_container.classList.remove("activeInfo");
 }
@@ -48,3 +48,15 @@ continue_btn.onclick = () => {
     info_box.classList.remove("activeInfo");
     quiz_box.classList.add("activeQuiz");
 }
+
+$(document).ready(function () {
+    $.ajax({
+        type: "GET",
+        url: "{% url '/quiz/microscopy_quiz' %}",
+        data: "data",
+        dataType: "dataType",
+        success: function (response) {
+            
+        }
+    });    
+});

@@ -105,11 +105,16 @@ body {
 }
 
 .box {
+    display: flex;
     box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2),
     0px 6px 20px 0 rgba(0, 0, 0, 0.19);
     border: none;
     border-radius: 5px;
     outline: none;
+    text-decoration: none;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
     width: 20%;
     padding: 9px;
     height: 145px;
@@ -123,7 +128,8 @@ body {
 }
 
 .box:hover {
-    transform: scale(1.04) perspective(0.5px)
+    transform: scale(1.04) perspective(0.5px);
+    color: #2596be;
 }
 
 @media screen and (max-width:1200px) {
@@ -139,8 +145,7 @@ body {
 }
 
 .info_box.activeInfo,
-.quiz_box.activeQuiz,
-.start_btn.activeInfo {
+.quiz_box.activeQuiz{
     opacity: 1;
     z-index: 5;
     pointer-events: auto;
@@ -165,11 +170,6 @@ body {
     transform: scale(1.04) perspective(0.5px)
 }
 
-.start_btn {
-    opacity: 0;
-    pointer-events: none;
-    transform: translate(-50%, -50%) scale(0.9);
-}
 
 .info_box {
     /* display: none; */
