@@ -15,7 +15,6 @@ const images_field = document.querySelector(".images");
 const option_list = document.querySelector(".option_list");
 
 
-
 // if start button clicked
 start_btn.onclick = () => {
     info_box.classList.add("activeInfo");
@@ -32,6 +31,8 @@ continue_btn.onclick = () => {
     info_box.classList.remove("activeInfo");
     quiz_box.classList.add("activeQuiz");
 }
+
+var url = window.location.href;
 
 $.ajax({
     type: 'GET',
