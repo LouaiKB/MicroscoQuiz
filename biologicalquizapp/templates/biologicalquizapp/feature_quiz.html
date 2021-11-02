@@ -36,7 +36,7 @@
         </header>
         <section>
             <div class="images">
-                {% for image in num1.images %}
+                {% for image in data.0.images %}
                     <img src="{% static image %}" alt="cell" class="img-option">
                 {% endfor %}
             </div>
@@ -45,9 +45,9 @@
                 {{question_2}}
             </div>
             <div class="option_list">
-                {% for answer in num1.answers %}
+                {% for answer in data.0.answers %}
                     <div class="option">
-                        {% if answer == num1.correct_answer %}
+                        {% if answer == data.0.correct_answer %}
                             <span>{{answer}}</span>
                             <div class="icon tick"><i class="fas fa-check"></i></div>
                         {% else %}
