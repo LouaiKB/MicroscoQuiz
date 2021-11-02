@@ -39,12 +39,8 @@
                 {% for image in images %}
                     <img src="{% static image %}" alt="cell" class="img-option"> 
                 {% endfor %} 
-                {% comment %} <form method="POST" action="">
-                    <input type="hidden" value={{ images }} id="img">
-                </form> {% endcomment %}
             </div>
             <div class="que_text">
-                {% comment %} <span>What does HTML stand for?</span> {% endcomment %}
                 {{question_1}}
             </div>
             <div class="option_list">
@@ -59,20 +55,6 @@
                         {% endif %}
                     </div>
                 {% endfor %}
-                {% comment %} <div class="option">
-                    <span>Hyper Text Preprocessor</span>
-                    <div class="icon cross"><i class="fas fa-times"></i></div>
-                </div> 
-                <div class="option">
-                    <span>Hyper Text Markup Language</span>
-                    <div class="icon tick"><i class="fas fa-check"></i></div>
-                </div>
-                <div class="option">
-                    <span>Hyper Text Multiple Language</span>
-                </div>
-                <div class="option">
-                    <span>Hyper Tool Multi Language</span>
-                </div> {% endcomment %}
             </div>
         </section>
         <!-- quiz box footer -->
@@ -100,7 +82,4 @@
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src={% static 'biologicalquizapp\js\script.js' %}></script>
-    <script>
-        var a = 
-    </script>
 {% endblock content %}

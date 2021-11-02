@@ -70,6 +70,10 @@ body {
     background-color: #fbd623;
 }
 
+.img-option {
+    transition: all 0.3s ease;
+}
+
 .question-chooser,
 .start_btn,
 .info_box,

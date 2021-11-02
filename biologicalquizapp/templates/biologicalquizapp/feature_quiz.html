@@ -36,7 +36,7 @@
         </header>
         <section>
             <div class="images">
-                {% for image in data.0.images %}
+                {% for image in images %}
                     <img src="{% static image %}" alt="cell" class="img-option">
                 {% endfor %}
             </div>
@@ -45,9 +45,9 @@
                 {{question_2}}
             </div>
             <div class="option_list">
-                {% for answer in data.0.answers %}
+                {% for answer in answers %}
                     <div class="option">
-                        {% if answer == data.0.correct_answer %}
+                        {% if answer == correct_answer %}
                             <span>{{answer}}</span>
                             <div class="icon tick"><i class="fas fa-check"></i></div>
                         {% else %}
@@ -81,5 +81,6 @@
             <button class="quit">Quit quizz</button>
         </div>
     </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src={% static 'biologicalquizapp\js\script.js' %}></script>
 {% endblock content %}
