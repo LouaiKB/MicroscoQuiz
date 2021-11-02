@@ -23,7 +23,7 @@ class Image(models.Model) :
         result_list = []
 
         if field == 'mode':
-            for i in range(15):
+            for i in range(10):
                 rand_field = choice(list_of_distinct_field)
                 list_of_specific_field = list(Image.objects.filter(mode=rand_field))
                 result_list.append({rand_field: sample(list_of_specific_field, number)})
