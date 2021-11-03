@@ -10,9 +10,9 @@ const quiz_box = document.querySelector(".quiz_box");
 const logo_paragraph_box = document.querySelector(".choose-type");
 const question_choose = document.querySelector(".question-chooser");
 const quit_btn = document.querySelector(".quit-btn");
-const next_btn = document.querySelector(".next_btn");
 const images_field = document.querySelector(".images");
 const option_list = document.querySelector(".option_list");
+const bottom_quest_counter = quiz_box.querySelector(".total_que");
 
 
 // if start button clicked
@@ -31,32 +31,6 @@ continue_btn.onclick = () => {
     info_box.classList.remove("activeInfo");
     quiz_box.classList.add("activeQuiz");
 }
-
-var url = window.location.href;
-
-$.ajax({
-    type: 'GET',
-    url: `${url}save`,
-    success: function (response) {
-        var data = response.data;
-        var data_len = response.data.length;
-        var image = response.data[0].images;
-        index = 0;
-        next_btn.onclick = () => {
-            if (index < data_len- 1) {
-                index++;
-                var num_img = image.length;
-                console.log('number images ' + num_img);
-                showQuestions(index, data, num_img);
-            } else {
-                console.log('questions completed');
-            }
-        }
-    },
-    error: function(response) {
-        console.log('wronnnnnnnnnnnnnggg!!!!')
-    }
-});
 
 let que_count = 0;
 
@@ -80,14 +54,21 @@ function showQuestions(index, data, num_img) {
 
     for (let i = 0; i < 4; ++i) {
         if (data[index]['answers'][i] === data[index]['correct_answer']) {
-            option_tag += '<div class="option"><span>' + data[index]['answers'][i] + '</span>' +
-                           '<div class="icon tick"><i class="fas fa-check"></i></div></div>';
+            option_tag += '<div class="option"><span>' + data[index]['answers'][i] + '</span></div>';
         } else {
-            option_tag += '<div class="option"><span>' + data[index]['answers'][i] + '</span>' +
-                           '<div class="icon cross"><i class="fas fa-times"></i></div></div>';
+            option_tag += '<div class="option"><span>' + data[index]['answers'][i] + '</span></div>';
         }                  
     }
     option_list.innerHTML = option_tag;
+    
+    const option = option_list.querySelectorAll(".option");
+    for (let i = 0; i < option.length; i++) {
+        option[i].setAttribute("onclick", `optionSelected(this)`);
+        
+    }
 }
 
-
+function queCounter(index, question_len) {
+    let totalQuesCountTag = '<span><p>' + index + '</p>of<p>' + question_len + '</p>Questions</span>';
+    bottom_quest_counter.innerHTML = totalQuesCountTag;
+}
