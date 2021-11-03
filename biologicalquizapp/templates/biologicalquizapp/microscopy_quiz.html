@@ -48,10 +48,8 @@
                     <div class="option" onclick="optionSelected(this)">
                         {% if answer == data.0.correct_answer %}
                             <span>{{answer}}</span>
-                            {% comment %} <div class="icon tick"><i class="fas fa-check"></i></div> {% endcomment %}
                         {% else %}
                             <span>{{answer}}</span>
-                            {% comment %} <div class="icon cross"><i class="fas fa-times"></i></div> {% endcomment %}
                         {% endif %}
                     </div>
                 {% endfor %}
@@ -62,7 +60,7 @@
             <div class="total_que">
                 <span><p>1</p>of<p>10</p>Questions</span>
             </div>
-            <button class="next_btn">Next Question</button>
+            <button class="next_btn disabled">Next Question</button>
         </footer>
     </div>
 
@@ -80,12 +78,19 @@
             <button class="quit">Quit quizz</button>
         </div>
     </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
     <script>
+        let tick_icon = '<div class="icon tick"><i class="fa fa-check"></i></div>';
+        let cross_icon = '<div class="icon cross"><i class="fa fa-times"></i></div>';
+        var score = 0;
         var data = {{data | safe}};
+        console.log(data);
         const next_btn = document.querySelector(".next_btn");
         var data_len = data.length;
 
         next_btn.onclick = () => {
+            next_btn.classList.add("disabled");
             if (que_count < data_len - 1) {
                 que_count++;
                 var num_img = data[0]['images'].length;
@@ -97,16 +102,60 @@
         }
 
         function optionSelected(answer) {
+            next_btn.classList.remove("disabled");
+            const option_list = document.querySelector(".option_list");
+            let allOptions = option_list.children.length;
             let correct_answer = data[que_count]['correct_answer'];
+            let description = data[que_count]['description'];
             let userAnswer = answer.textContent;
             userAnswer = userAnswer.replace(/\n/g, '').trim();
             if (userAnswer === correct_answer) {
-                console.log(true);
+                score += 3;
+                answer.classList.add("correct");
+                answer.insertAdjacentHTML("beforeend", tick_icon);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Your answer is correct!',
+                    text: description,
+                    footer: '<strong>Score <span style="color: #2596be">+3!</span></strong>',
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    cancelButtonColor: '#2596be',
+                    confirmButtonColor: '#fca103',
+                    confirmButtonText: 'Get more informations!',
+                    cancelButtonText: 'Continue',
+                });
             } else {
-                console.log(false);
+                score -= 3;
+                answer.classList.add("incorrect");
+                answer.insertAdjacentHTML("beforeend", cross_icon);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Your answer is not correct!',
+                    html: `The correct answer is <strong>${correct_answer}</strong><br>${description}`,
+                    footer: '<strong>Score <span style="color: red">-3!</span></strong>',
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    cancelButtonColor: '#2596be',
+                    confirmButtonColor: '#fca103',
+                    confirmButtonText: 'Get more informations!',
+                    cancelButtonText: 'Continue',
+                });
+
+                // if answer is wrong then automatically select the correct answer
+                for (let i = 0; i < allOptions; i++) {
+                    if (option_list.children[i].textContent.replace(/\n/g, '').trim() == correct_answer) {
+                        option_list.children[i].setAttribute("class", "option correct");
+                        option_list.children[i].insertAdjacentHTML("beforeend", tick_icon);
+                    }
+                }
+            }
+
+            // Once user select a button, all other buttons will be disabled
+            for (let i = 0; i < allOptions; i++) {
+                option_list.children[i].classList.add("disabled");
             }
         }
-
     </script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src={% static 'biologicalquizapp\js\script.js' %}></script>

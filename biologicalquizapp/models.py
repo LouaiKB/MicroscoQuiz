@@ -18,11 +18,11 @@ class Image(models.Model) :
 
     @staticmethod
     def get_random_images(field, number):
-        list_of_distinct_field = [i[field] for i in list(Image.objects.order_by().values(field).distinct())]
         # rand_field = choice(list_of_distinct_field)
         result_list = []
 
         if field == 'mode':
+            list_of_distinct_field = [i['answer'] for i in Answer.objects.filter(question_id=1).values()]
             for i in range(10):
                 rand_field = choice(list_of_distinct_field)
                 list_of_specific_field = list(Image.objects.filter(mode=rand_field))
@@ -30,6 +30,7 @@ class Image(models.Model) :
 
         elif field == 'components':
             # this while loop is created to prevent that we have only one record in our list
+            list_of_distinct_field = [i['answer'] for i in Answer.objects.filter(question_id=2).values()]
             for i in range(10):
                 list_of_specific_field = [0]
                 while len(list_of_specific_field) == 1:
@@ -37,13 +38,14 @@ class Image(models.Model) :
                     list_of_specific_field = list(Image.objects.filter(components=rand_field))
                 result_list.append({rand_field: sample(list_of_specific_field, number)})
                 
-        elif field == 'celltype':
-            for i in range(10):
-                list_of_specific_field = [0]
-                while len(list_of_specific_field) == 1:
-                    rand_field = choice(list_of_distinct_field)
-                    list_of_specific_field = list(Image.objects.filter(celltype=rand_field))
-                result_list.append({rand_field: sample(list_of_specific_field, number)})
+        # elif field == 'celltype':
+        #     list_of_distinct_field = [i['answer'] for i in Answer.objects.filter(question_id=2).values()]
+        #     for i in range(10):
+        #         list_of_specific_field = [0]
+        #         while len(list_of_specific_field) == 1:
+        #             rand_field = choice(list_of_distinct_field)
+        #             list_of_specific_field = list(Image.objects.filter(celltype=rand_field))
+        #         result_list.append({rand_field: sample(list_of_specific_field, number)})
                                 
         return result_list
 

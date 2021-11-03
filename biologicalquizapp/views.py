@@ -42,7 +42,8 @@ def microscopy_quiz(request):
             'num': num,
             'images': ["data\\" + str(i.name) + ".jpg" for i in element[list(element.keys())[0]]],
             'answers': answers,
-            'correct_answer': correct_answer
+            'correct_answer': correct_answer,
+            'description': Answer.objects.filter(answer=correct_answer).values()[0]['definition']
         })
         num += 1
     return render(request, 'biologicalquizapp\microscopy_quiz.html', context)
@@ -50,14 +51,14 @@ def microscopy_quiz(request):
 @login_required
 def features_quiz(request):
     # we will pick up random question from celltype or components
-    random_num = randint(1, 2)
+    # random_num = randint(1, 2)
     
     # if 1 we will choose the components questions
-    if random_num == 1:
-        images_and_answer = Image.get_random_images('components', 2)
+    # if random_num == 1:
+    images_and_answer = Image.get_random_images('components', 2)
 
-    elif random_num == 2:
-        images_and_answer = Image.get_random_images('celltype', 2)
+    # elif random_num == 2:
+    #     images_and_answer = Image.get_random_images('celltype', 2)
 
     context = {}
     context['title'] = 'features quiz'
@@ -76,8 +77,10 @@ def features_quiz(request):
             'num': num,
             'images': ["data\\" + str(i.name) + ".jpg" for i in element[list(element.keys())[0]]],
             'answers': answers,
-            'correct_answer': correct_answer
+            'correct_answer': correct_answer,
+            'description': Answer.objects.filter(answer=correct_answer).values()[0]['definition']
         })
         num += 1
+    
 
     return render(request, 'biologicalquizapp\\feature_quiz.html', context)
