@@ -36,7 +36,7 @@
         </header>
         <section>
             <div class="images">
-                {% for image in images %}
+                {% for image in data.0.images %}
                     <img src="{% static image %}" alt="cell" class="img-option">
                 {% endfor %}
             </div>
@@ -45,14 +45,14 @@
                 {{question_2}}
             </div>
             <div class="option_list">
-                {% for answer in answers %}
-                    <div class="option">
-                        {% if answer == correct_answer %}
+                {% for answer in data.0.answers %}
+                    <div class="option" onclick="optionSelected(this)">
+                        {% if answer == data.0.correct_answer %}
                             <span>{{answer}}</span>
-                            <div class="icon tick"><i class="fas fa-check"></i></div>
+                            {% comment %} <div class="icon tick"><i class="fas fa-check"></i></div> {% endcomment %}
                         {% else %}
                             <span>{{answer}}</span>
-                            <div class="icon cross"><i class="fas fa-times"></i></div>
+                            {% comment %} <div class="icon cross"><i class="fas fa-times"></i></div> {% endcomment %}
                         {% endif %}
                     </div>
                 {% endfor %}
@@ -61,7 +61,7 @@
         <!-- quiz box footer -->
         <footer>
             <div class="total_que">
-                <span><p>2</p>of<p>5</p>Questions</span>
+                <span><p>1</p>of<p>10</p>Questions</span>
             </div>
             <button class="next_btn">Next Question</button>
         </footer>
@@ -81,6 +81,33 @@
             <button class="quit">Quit quizz</button>
         </div>
     </div>
+    <script>
+        var data = {{data | safe}};
+        const next_btn = document.querySelector(".next_btn");
+        var data_len = data.length;
+
+        next_btn.onclick = () => {
+            if (que_count < data_len - 1) {
+                que_count++;
+                var num_img = data[0]['images'].length;
+                showQuestions(que_count, data, num_img);
+                queCounter(que_count + 1, data_len);
+            } else {
+                console.log('question completed');
+            }
+        }
+
+        function optionSelected(answer) {
+            let correct_answer = data[que_count]['correct_answer'];
+            let userAnswer = answer.textContent;
+            userAnswer = userAnswer.replace(/\n/g, '').trim();
+            if (userAnswer === correct_answer) {
+                console.log(true);
+            } else {
+                console.log(false);
+            }
+        }
+    </script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src={% static 'biologicalquizapp\js\script.js' %}></script>
 {% endblock content %}
