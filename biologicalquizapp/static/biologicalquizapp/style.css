@@ -25,7 +25,8 @@ body {
     position:absolute;
     width: 400px;
     top: -5%;
-    left: 35%;  
+    left: 35%;
+    cursor: pointer;  
 }
 
 .choose-type .quiz-type {
@@ -331,6 +332,15 @@ body {
     user-select: none;
 }
 
+.quiz_box header .time_line {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 3px;
+    width: 50%;
+    background: #2596be;
+}
+
 .quiz_box section {
     padding: 25px 30px 20px 30px;
     background: #fff;
@@ -438,6 +448,7 @@ footer .total_que span p {
 }
 
 footer .next_btn {
+    display: none;
     height: 40px;
     padding: 0 13px;
     font-size: 16px;
@@ -456,9 +467,9 @@ footer .next_btn:hover {
     background: #265478;
 }
 
-footer .next_btn.disabled {
+/* footer .next_btn.disabled {
     pointer-events: none;
-}
+} */
 .result_box {
     background: #fff;
     width: 450px;

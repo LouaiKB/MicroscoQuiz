@@ -13,26 +13,34 @@ const quit_btn = document.querySelector(".quit-btn");
 const images_field = document.querySelector(".images");
 const option_list = document.querySelector(".option_list");
 const bottom_quest_counter = quiz_box.querySelector(".total_que");
-
+const timerCount = quiz_box.querySelector(".timer .timer_sec");
+const timerLine = quiz_box.querySelector("header .time_line");
 
 // if start button clicked
 start_btn.onclick = () => {
     info_box.classList.add("activeInfo");
 }
 
-// // hide the info box
+// return to choosing menue
 exit_btn.onclick = () => {
-    info_box.classList.remove("activeInfo");
-    start_btn_container.classList.remove("activeInfo");
+    location.href = window.location.origin + '/quizapp';
 }
+
+
 
 // If continue button is clicked
 continue_btn.onclick = () => {
     info_box.classList.remove("activeInfo");
     quiz_box.classList.add("activeQuiz");
+    startTimer(20);
+    startTimerLine(0);
 }
 
 let que_count = 0;
+let counter;
+let timeValue = 20;
+let widthValue = 0;
+
 
 // getting questions and options from array
 function showQuestions(index, data, num_img) {
@@ -71,4 +79,27 @@ function showQuestions(index, data, num_img) {
 function queCounter(index, question_len) {
     let totalQuesCountTag = '<span><p>' + index + '</p>of<p>' + question_len + '</p>Questions</span>';
     bottom_quest_counter.innerHTML = totalQuesCountTag;
+}
+
+function startTimer(time) {
+    counter = setInterval(timer, 1000);
+    function timer() {
+        timerCount.textContent = time;
+        time--;
+        if (time < 0) {
+            clearInterval(counter);
+            timerCount.textContent = "0";
+        }
+    }
+}
+
+function startTimerLine(time) {
+    counterLine = setInterval(timer, 26);
+    function timer() {
+        time += 1
+        timerLine.style.width = time + "px";
+        if (time > 800) {
+            clearInterval(counterLine);
+        }
+    }
 }

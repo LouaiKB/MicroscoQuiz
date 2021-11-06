@@ -20,7 +20,7 @@
             <div class="info">5. You'll get points on the basis of your correct answers.</div>
         </div>
         <div class="buttons">
-            <button class="quit">Exit button</button>
+            <button class="quit">Exit Quiz</button>
             <button class="restart">Continue</button>
         </div>
     </div>
@@ -33,6 +33,7 @@
                 <div class="time_text">Time Left</div>
                 <div class="timer_sec">20</div>
             </div>
+            <div class="time_line"></div>
         </header>
         <section>
             <div class="images">
@@ -90,19 +91,24 @@
         var data_len = data.length;
 
         next_btn.onclick = () => {
-            next_btn.classList.add("disabled");
+            next_btn.style.display = "none";
             if (que_count < data_len - 1) {
                 que_count++;
                 var num_img = data[0]['images'].length;
                 showQuestions(que_count, data, num_img);
                 queCounter(que_count + 1, data_len);
+                clearInterval(counter);
+                startTimer(timeValue);
+                clearInterval(counterLine);
+                startTimerLine(widthValue);
             } else {
                 console.log('question completed');
             }
         }
 
         function optionSelected(answer) {
-            next_btn.classList.remove("disabled");
+            clearInterval(counter); 
+            clearInterval(counterLine);
             const option_list = document.querySelector(".option_list");
             let allOptions = option_list.children.length;
             let correct_answer = data[que_count]['correct_answer'];
@@ -151,6 +157,7 @@
                 }
             }
 
+            next_btn.style.display = "block";
             // Once user select a button, all other buttons will be disabled
             for (let i = 0; i < allOptions; i++) {
                 option_list.children[i].classList.add("disabled");
