@@ -1,10 +1,11 @@
-from random import randint, shuffle
-from django.http.response import HttpResponse, JsonResponse
+from random import shuffle
 from django.shortcuts import render
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Answer, Image, Question
 from django.views import View
+from django.views.generic.list import ListView
+from django.views.generic import DetailView
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 # Create your views here.
 def home(request):
@@ -84,3 +85,76 @@ def features_quiz(request):
     
 
     return render(request, 'biologicalquizapp\\feature_quiz.html', context)
+
+class ExplorePage(ListView):
+    template_name = 'biologicalquizapp\explore.html'
+    model = Image
+    context_object_name = 'images'
+    paginate_by = 10
+    queryset = Image.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context =  super(ExplorePage, self).get_context_data(**kwargs)
+        context['images'] = Image.objects.all()
+        context['title'] = 'explore page'
+        # context['image_path'] = ["data\\" +  str(i.name) + ".jpg" for i in Image.objects.all()]
+        context['metadatas'] = Image.get_metadatas()
+        return context
+
+def explore_page(request):
+    images_list = Image.objects.all()
+    paginator = Paginator(images_list, 10)
+    page = request.GET.get('page')
+    try:
+        images = paginator.page(page)
+    except PageNotAnInteger:
+        images = paginator.page(1)
+    except EmptyPage:
+        images = paginator.page(paginator.num_pages)
+
+    context = {
+        'title': 'explore page',
+        'images' : images,
+        'metadatas': Image.get_metadatas(),
+        'paginated' : True
+    }
+
+    return render(request, 'biologicalquizapp\explore.html', context)
+
+
+class ExploreImage(DetailView):
+    model = Image
+
+
+def search(request):
+    query = request.GET.get('query')
+   
+    if not query:
+        images_list = Image.objects.all()
+        paginator = Paginator(images_list, 10)
+        page = request.GET.get('page')
+        try:
+            images = paginator.page(page)
+        except PageNotAnInteger:
+            images = paginator.page(1)
+        except EmptyPage:
+            images = paginator.page(paginator.num_pages)
+
+    else:
+        images = Image.objects.filter(mode__icontains=query)
+        
+        if not images.exists():
+            images = Image.objects.filter(components__icontains=query)
+
+        if not images.exists():
+            images = Image.objects.filter(organism__icontains=query)
+        
+        if not images.exists():
+            images = Image.objects.filter(celltype__icontains=query)
+        
+    context = {
+        'images': images,
+        'metadatas': Image.get_metadatas(),
+        'paginated' : True
+    }
+    return render(request, 'biologicalquizapp\explore.html', context)

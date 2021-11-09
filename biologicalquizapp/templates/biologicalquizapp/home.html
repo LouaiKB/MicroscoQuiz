@@ -11,13 +11,13 @@
             {% if user.is_authenticated %}
                 <ul>
                     <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="">Explore</a></li>
+                    <li><a href="{% url 'explore' %}">Explore</a></li>
                     <li><a href="{% url 'logout' %}">logout</a></li>
                 </ul>
             {% else %}    
                 <ul>
                     <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="">Explore</a></li>
+                    <li><a href="{% url 'explore' %}">Explore</a></li>
                     <li><a href="{% url 'login' %}">SignIn/SignUp</a></li>
                 </ul>
             {% endif %}

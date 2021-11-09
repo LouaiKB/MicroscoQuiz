@@ -1,0 +1,67 @@
+{% extends 'biologicalquizapp\base.html' %}
+{% load static %}
+{% block mycss %}
+    <link rel="stylesheet" href="{% static 'biologicalquizapp\style.css' %}"> 
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+{% endblock mycss %}
+{% block content %}
+    {% comment %} EXPLORE SECTION {% endcomment %}
+    <a href="{% url 'home' %}"><img src={% static 'biologicalquizapp\MicroscoQuizz.png' %} alt="..." class="logo-explore"></a>
+    <div class="wrapper">
+        <form action="{% url 'search' %}" method="get" accept-charset="utf-8">
+            <div class="search-input">
+                <input type="text" placeholder="Type to search ..." id="search" name="query">
+                {% comment %} <div class="autocom-box"></div> {% endcomment %}
+                <div class="icon"><button type="submit" style="background: none; padding: 0px; border: none; color: #2596be"><i class="fa fa-search"></i></div>
+            </div>
+        </form>
+    </div>
+    <div class="wrapper-container">
+        {% if images|length_is:"0" %}
+            <div class="text-center" style="color: #fff; weight: 500;">Oups! we haven't found a result that corresponds to your search</div>
+        {% else %}
+            <div class="article_container">
+                {% for image in images%}
+                    <article class="article_card">
+                        <figure class="article_image">
+                            {% with image.name|stringformat:"i"|add:".jpg" as image_path %}
+                                {% with 'data\\'|add:image_path as path %}
+                                <a href="{% url 'explore_image' pk=image.id %}"><img src="{% static path %}" alt="..." class="img-option"></a>
+                                {% endwith %}
+                            {% endwith %}    
+                        </figure>
+                        <div class="article_content">
+                            {% if image.celltype == "None" %}
+                                <h2 class="card_mode">Cell</a>
+                            {% else %}
+                                <h2 class="card_mode">{{image.celltype}}</h2>
+                            {% endif %}
+                            <h3 class="card_title">{{image.mode}}</h3>
+                            {% if image.components == "None" %}
+                                <p class="card_excerpt"><span style="color: black"><strong>Component: </strong></span>Cell component</p>
+                            {% else %}
+                                <p class="card_excerpt"><span style="color: black"><strong>Component: </strong></span>{{image.components}}</p>
+                            {% endif %}
+                            <p class="card_excerpt"><span style="color: black"><strong>Organism: </strong></span>{{image.organism}}</p>
+                            <p class="card_excerpt"><span style="color: black"><strong>DOI: </strong></span>{{image.doi}}</p>
+                            <a href="{% url 'explore_image' pk=image.id %}"> <button class="description_btn">Read more</button></a>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+            <nav aria-label="...">
+                <ul class="pager">
+                    {% if images.has_previous %}
+                        <li><a href="?page={{images.previous_page_number }}">Previous</a></li>
+                    {% endif %}
+                    {% if images.has_next %}
+                        <li><a href="?page={{images.next_page_number }}">Next</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    {% comment %} <script src="{% static 'biologicalquizapp\js\searchScript.js' %}"></script> {% endcomment %}
+{% endblock content %}
+
+

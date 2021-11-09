@@ -7,5 +7,8 @@ urlpatterns = [
     path('home/', views.home, name='home'),
     path('quizapp/', views.quiz_view, name='quiz-view'),
     path('quizapp/microscopy_quiz/', views.microscopy_quiz, name='microscopy-quiz'),
-    path('quizapp/features_quiz/', views.features_quiz, name='features-quiz')
+    path('quizapp/features_quiz/', views.features_quiz, name='features-quiz'),
+    path('explore/', views.explore_page, name='explore'),
+    path('explore/<int:pk>', views.ExploreImage.as_view(), name='explore_image'),
+    path('search/', views.search, name='search')
 ]

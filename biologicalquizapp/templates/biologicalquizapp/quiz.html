@@ -7,7 +7,7 @@
 {% endblock mycss %}
 {% block content %}
     <div class="choose-type">
-        <img src="{% static 'biologicalquizapp\MicroscoQuizz.png' %}" alt="microscoquizimg" class="microscoimg">
+        <a href="{% url 'home' %}"><img src="{% static 'biologicalquizapp\MicroscoQuizz.png' %}" alt="microscoquizimg" class="microscoimg"></a>
         <p class="quiz-type">Choose a Quiz category<p>
     </div>
     <div class="question-chooser">

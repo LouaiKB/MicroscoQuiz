@@ -41,6 +41,11 @@
 		</div>
 	</div>
 </section>
+{% block script %}
+    <script src={% static 'registration\js\main.js' %}></script>
+    <script src={% static 'registration\js\jquery.min.js' %} ></script>
+    <script src={% static 'registration\js\popper.js' %}></script>
+{% endblock script %}
 <script>
 
 	// Get the input tags

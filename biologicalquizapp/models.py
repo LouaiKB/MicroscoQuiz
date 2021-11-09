@@ -48,6 +48,15 @@ class Image(models.Model) :
         #         result_list.append({rand_field: sample(list_of_specific_field, number)})
                                 
         return result_list
+    
+    @staticmethod
+    def get_metadatas():
+        metadatas_list = []
+        fields = ['mode', 'components', 'celltype', 'organism']
+        for field in fields:
+            metadatas_list += [i[field] for i in list(Image.objects.order_by().values(field).distinct())]
+        metadatas_list.remove('None')
+        return metadatas_list
 
 class Question(models.Model):
     question = models.CharField(max_length=255)
