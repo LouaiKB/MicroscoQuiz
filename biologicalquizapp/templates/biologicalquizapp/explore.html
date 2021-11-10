@@ -6,13 +6,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 {% endblock mycss %}
 {% block content %}
-    {% comment %} EXPLORE SECTION {% endcomment %}
     <a href="{% url 'home' %}"><img src={% static 'biologicalquizapp\MicroscoQuizz.png' %} alt="..." class="logo-explore"></a>
     <div class="wrapper">
         <form action="{% url 'search' %}" method="get" accept-charset="utf-8">
             <div class="search-input">
                 <input type="text" placeholder="Type to search ..." id="search" name="query">
-                {% comment %} <div class="autocom-box"></div> {% endcomment %}
                 <div class="icon"><button type="submit" style="background: none; padding: 0px; border: none; color: #2596be"><i class="fa fa-search"></i></div>
             </div>
         </form>
@@ -50,18 +48,19 @@
                     </article>
                 {% endfor %}
             </div>
-            <nav aria-label="...">
-                <ul class="pager">
-                    {% if images.has_previous %}
-                        <li><a href="?page={{images.previous_page_number }}">Previous</a></li>
-                    {% endif %}
-                    {% if images.has_next %}
-                        <li><a href="?page={{images.next_page_number }}">Next</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
+            {% if paginated %}
+                <nav aria-label="...">
+                    <ul class="pager">
+                        {% if images.has_previous %}
+                            <li><a href="?page={{images.previous_page_number }}">Previous</a></li>
+                        {% endif %}
+                        {% if images.has_next %}
+                            <li><a href="?page={{images.next_page_number }}">Next</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
         {% endif %}
-    {% comment %} <script src="{% static 'biologicalquizapp\js\searchScript.js' %}"></script> {% endcomment %}
 {% endblock content %}
 
 
