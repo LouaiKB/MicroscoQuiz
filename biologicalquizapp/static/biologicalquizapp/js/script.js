@@ -15,6 +15,11 @@ const option_list = document.querySelector(".option_list");
 const bottom_quest_counter = quiz_box.querySelector(".total_que");
 const timerCount = quiz_box.querySelector(".timer .timer_sec");
 const timerLine = quiz_box.querySelector("header .time_line");
+const result_box = document.querySelector(".result_box");
+const restart_quiz = result_box.querySelector(".buttons .restart");
+const quit_quiz = result_box.querySelector(".buttons .quit");
+const timeText = document.querySelector(".timer .time_text");
+const timeCount = document.querySelector(".timer .timer_sec");
 
 // if start button clicked
 start_btn.onclick = () => {
@@ -41,6 +46,13 @@ let counter;
 let timeValue = 20;
 let widthValue = 0;
 
+quit_quiz.onclick = () => {
+    location.href = window.location.origin + '/quizapp';
+}
+
+restart_quiz.onclick = () => {
+    window.location.reload();
+}
 
 // getting questions and options from array
 function showQuestions(index, data, num_img) {
@@ -81,17 +93,6 @@ function queCounter(index, question_len) {
     bottom_quest_counter.innerHTML = totalQuesCountTag;
 }
 
-function startTimer(time) {
-    counter = setInterval(timer, 1000);
-    function timer() {
-        timerCount.textContent = time;
-        time--;
-        if (time < 0) {
-            clearInterval(counter);
-            timerCount.textContent = "0";
-        }
-    }
-}
 
 function startTimerLine(time) {
     counterLine = setInterval(timer, 26);
@@ -101,5 +102,42 @@ function startTimerLine(time) {
         if (time > 800) {
             clearInterval(counterLine);
         }
+    }
+}
+
+function showResultBox(all_score) {
+    info_box.classList.remove("activeInfo");
+    quiz_box.classList.remove("activeQuiz");
+    result_box.classList.add("activeResult");
+    const scoreText = result_box.querySelector(".score_text");
+    if (all_score == 30) {
+
+        if (score >= 21) {
+            let scoreTag = `<span>Congratulation! very good You got ${score} out of ${all_score}</span>`;
+            scoreText.innerHTML = scoreTag;
+        } 
+        else if (score > 15 && score < 21) {
+            let scoreTag = `<span>Good job!, You got ${score} out of ${all_score}</span>`;
+            scoreText.innerHTML = scoreTag;    
+        }
+        else if (score < 15) {
+            let scoreTag = `<span>Hard luck!, sorry You got ${score} out of ${all_score}</span>`;
+            scoreText.innerHTML = scoreTag;
+        }
+    }
+    else if (all_score == 20) {
+        if (score >= 16) {
+            let scoreTag = `<span>Congratulation! very good You got ${score} out of ${all_score}</span>`;
+            scoreText.innerHTML = scoreTag;
+        } 
+        else if (score > 10 && score < 16) {
+            let scoreTag = `<span>Good job!, You got ${score} out of ${all_score}</span>`;
+            scoreText.innerHTML = scoreTag;    
+        }
+        else if (score < 10) {
+            let scoreTag = `<span>Hard luck!, sorry You got ${score} out of ${all_score}</span>`;
+            scoreText.innerHTML = scoreTag;
+        }
+
     }
 }

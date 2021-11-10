@@ -33,6 +33,7 @@
                 <div class="time_text">Time Left</div>
                 <div class="timer_sec">20</div>
             </div>
+            <div class="time_line"></div>
         </header>
         <section>
             <div class="images">
@@ -89,19 +90,53 @@
         var data_len = data.length;
 
         next_btn.onclick = () => {
-            next_btn.classList.add("disabled");
+            next_btn.style.display = "none";
             if (que_count < data_len - 1) {
                 que_count++;
                 var num_img = data[0]['images'].length;
                 showQuestions(que_count, data, num_img);
                 queCounter(que_count + 1, data_len);
+                clearInterval(counter);
+                startTimer(timeValue);
+                clearInterval(counterLine);
+                startTimerLine(widthValue);
+                timeText.textContent = "Time Left";
             } else {
+                clearInterval(counter);
+                clearInterval(counterLine);
                 console.log('question completed');
+                showResultBox(20);
+            }
+        }
+
+        function startTimer(time) {
+            counter = setInterval(timer, 1000);
+            function timer() {
+                timerCount.textContent = time;
+                time--;
+                if (time < 0) {
+                    clearInterval(counter);
+                    let correct_answer = data[que_count]['correct_answer'];
+                    timerCount.textContent = "0";
+                    timeText.textContent = "Time Off"; //change the time text to time off
+                    let allOptions = option_list.children.length; //getting all option items
+                    for (let i = 0; i < allOptions; i++) {
+                        if (option_list.children[i].textContent.replace(/\n/g, '').trim() == correct_answer) {
+                            option_list.children[i].setAttribute("class", "option correct");
+                            option_list.children[i].insertAdjacentHTML("beforeend", tick_icon);
+                        }
+                    }
+                    for(i=0; i < allOptions; i++){
+                        option_list.children[i].classList.add("disabled"); //once user select an option then disabled all options
+                    }
+                    next_btn.style.display = "block";
+                }
             }
         }
 
         function optionSelected(answer) {
-            next_btn.classList.remove("disabled");
+            clearInterval(counter); 
+            clearInterval(counterLine);
             const option_list = document.querySelector(".option_list");
             let allOptions = option_list.children.length;
             let correct_answer = data[que_count]['correct_answer'];
@@ -109,35 +144,35 @@
             let userAnswer = answer.textContent;
             userAnswer = userAnswer.replace(/\n/g, '').trim();
             if (userAnswer === correct_answer) {
-                score += 3;
+                score += 2;
                 answer.classList.add("correct");
                 answer.insertAdjacentHTML("beforeend", tick_icon);
                 Swal.fire({
                     icon: 'success',
                     title: 'Your answer is correct!',
                     text: description,
-                    footer: '<strong>Score <span style="color: #2596be">+3!</span></strong>',
+                    footer: '<strong>Score <span style="color: #2596be">+2!</span></strong>',
                     showCancelButton: true,
                     focusConfirm: false,
                     cancelButtonColor: '#2596be',
                     confirmButtonColor: '#fca103',
-                    confirmButtonText: 'Get more informations!',
+                    confirmButtonText: `<a href="http://127.0.0.1:8000/search/?query=${correct_answer.slice(0, 7)}" style="color: #fff; text-decoration: none;" target="_blank">Get more informations!</a>`,
                     cancelButtonText: 'Continue',
                 });
             } else {
-                score -= 3;
+                score -= 2;
                 answer.classList.add("incorrect");
                 answer.insertAdjacentHTML("beforeend", cross_icon);
                 Swal.fire({
                     icon: 'error',
                     title: 'Your answer is not correct!',
                     html: `The correct answer is <strong>${correct_answer}</strong><br>${description}`,
-                    footer: '<strong>Score <span style="color: red">-3!</span></strong>',
+                    footer: '<strong>Score <span style="color: red">-2!</span></strong>',
                     showCancelButton: true,
                     focusConfirm: false,
                     cancelButtonColor: '#2596be',
                     confirmButtonColor: '#fca103',
-                    confirmButtonText: 'Get more informations!',
+                    confirmButtonText: `<a href="http://127.0.0.1:8000/search/?query=${correct_answer.slice(0, 7)}" style="color: #fff; text-decoration: none;" target="_blank">Get more informations!</a>`,
                     cancelButtonText: 'Continue',
                 });
 
@@ -149,7 +184,7 @@
                     }
                 }
             }
-
+            next_btn.style.display = "block";
             // Once user select a button, all other buttons will be disabled
             for (let i = 0; i < allOptions; i++) {
                 option_list.children[i].classList.add("disabled");

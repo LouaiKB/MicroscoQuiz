@@ -100,7 +100,7 @@ class ExplorePage(ListView):
 def explore_page(request):
     images_list = Image.objects.all()
     paginator = Paginator(images_list, 10)
-    page = request.GET.get('page')
+    page = request.GET.get('page', 1)
     try:
         images = paginator.page(page)
     except PageNotAnInteger:
@@ -112,7 +112,9 @@ def explore_page(request):
         'title': 'explore page',
         'images' : images,
         'metadatas': Image.get_metadatas(),
-        'paginated' : True
+        'paginated' : True,
+        'paginator': paginator,
+        'page_number': int(page),
     }
 
     return render(request, 'biologicalquizapp\explore.html', context)
@@ -128,13 +130,19 @@ def search(request):
     if not query:
         images_list = Image.objects.all()
         paginator = Paginator(images_list, 10)
-        page = request.GET.get('page')
+        page = request.GET.get('page', 1)
         try:
             images = paginator.page(page)
         except PageNotAnInteger:
             images = paginator.page(1)
         except EmptyPage:
             images = paginator.page(paginator.num_pages)
+
+        context = {
+            'paginated': True, 
+            'paginator': paginator,
+            'page_number': int(page)
+        }
 
     else:
         images = Image.objects.filter(mode__icontains=query)
@@ -150,7 +158,6 @@ def search(request):
         
     context = {
         'images': images,
-        'metadatas': Image.get_metadatas(),
-        'paginated' : True
+        'metadatas': Image.get_metadatas()          
     }
     return render(request, 'biologicalquizapp\explore.html', context)

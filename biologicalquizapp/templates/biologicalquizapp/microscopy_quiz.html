@@ -72,7 +72,7 @@
         </div>
         <div class="complete_text">You've completed the quiz!</div>
         <div class="score_text">
-            <span>and sorry, You got only <p>2</p> out of <p>5</p></span>
+            {% comment %} <span>and sorry, You got only <p>2</p> out of <p>5</p></span> {% endcomment %}
         </div>
         <div class="buttons">
             <button class="restart">Replay Quiz</button>
@@ -86,7 +86,6 @@
         let cross_icon = '<div class="icon cross"><i class="fa fa-times"></i></div>';
         var score = 0;
         var data = {{data | safe}};
-        console.log(data);
         const next_btn = document.querySelector(".next_btn");
         var data_len = data.length;
 
@@ -101,8 +100,38 @@
                 startTimer(timeValue);
                 clearInterval(counterLine);
                 startTimerLine(widthValue);
+                timeText.textContent = "Time Left";
             } else {
+                clearInterval(counter);
+                clearInterval(counterLine);
                 console.log('question completed');
+                showResultBox(30);
+            }
+        }
+
+        function startTimer(time) {
+            counter = setInterval(timer, 1000);
+            function timer() {
+                timerCount.textContent = time;
+                time--;
+                if (time < 0) {
+                    clearInterval(counter);
+                    let correct_answer = data[que_count]['correct_answer'];
+                    timerCount.textContent = "0";
+                    
+                    timeText.textContent = "Time Off"; //change the time text to time off
+                    let allOptions = option_list.children.length; //getting all option items
+                    for (let i = 0; i < allOptions; i++) {
+                        if (option_list.children[i].textContent.replace(/\n/g, '').trim() == correct_answer) {
+                            option_list.children[i].setAttribute("class", "option correct");
+                            option_list.children[i].insertAdjacentHTML("beforeend", tick_icon);
+                        }
+                    }
+                    for(i=0; i < allOptions; i++){
+                        option_list.children[i].classList.add("disabled"); //once user select an option then disabled all options
+                    }
+                    next_btn.style.display = "block";
+                }
             }
         }
 
