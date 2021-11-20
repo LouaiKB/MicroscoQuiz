@@ -64,7 +64,6 @@
             <button class="next_btn disabled">Next Question</button>
         </footer>
     </div>
-
     <!-- Result box --> 
     <div class="result_box">
         <div class="icon">
@@ -81,6 +80,7 @@
     </div>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.all.min.js"></script>
+    {% csrf_token %}
     <script>
         let tick_icon = '<div class="icon tick"><i class="fa fa-check"></i></div>';
         let cross_icon = '<div class="icon cross"><i class="fa fa-times"></i></div>';
@@ -106,6 +106,19 @@
                 clearInterval(counterLine);
                 console.log('question completed');
                 showResultBox(30);
+               // window.location.replace(`${window.location.origin}/quizapp/microscopy_quiz/save`);
+                $.ajax({
+                    type: 'post',
+                    url: `${url}`,
+                    data: {'score': score, 'csrfmiddlewaretoken': csrftoken},
+                    success: function() {
+                        console.log("SUCESS! " + score);
+                    },
+                    error: function() {
+                        console.log("noooo!!!!");
+                        // alert(errMsg);
+                    }
+                });
             }
         }
 
@@ -157,7 +170,7 @@
                     focusConfirm: false,
                     cancelButtonColor: '#2596be',
                     confirmButtonColor: '#fca103',
-                    confirmButtonText: `<a href="http://127.0.0.1:8000/search/?query=${correct_answer.slice(0, 7)}" style="color: #fff; text-decoration: none;" target="_blank">Get more informations!</a>`,
+                    confirmButtonText: `<a href="${window.location.origin}/search/?query=${correct_answer.slice(0, 7)}" style="color: #fff; text-decoration: none;" target="_blank">Get more informations!</a>`,
                     cancelButtonText: 'Continue',
                 });
             } else {
@@ -173,7 +186,7 @@
                     focusConfirm: false,
                     cancelButtonColor: '#2596be',
                     confirmButtonColor: '#fca103',
-                    confirmButtonText: `<a href="http://127.0.0.1:8000/search/?query=${correct_answer.slice(0, 7)}" style="color: #fff; text-decoration: none;" target="_blank">Get more informations!</a>`,
+                    confirmButtonText: `<a href="${window.location.origin}/search/?query=${correct_answer.slice(0, 7)}" style="color: #fff; text-decoration: none;" target="_blank">Get more informations!</a>`,
                     cancelButtonText: 'Continue',
                 });
 

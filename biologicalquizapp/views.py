@@ -1,4 +1,5 @@
 from random import shuffle
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Answer, Image, Question
@@ -51,7 +52,21 @@ def microscopy_quiz(request):
         num += 1
 
     return render(request, 'biologicalquizapp\microscopy_quiz.html', context)
- 
+
+@login_required
+def microscopy_quiz_result(request):
+
+
+
+@login_required
+def microscopy_quiz_save(request):
+    if request.is_ajax():
+        html = request.POST.data
+    else:
+        html = "error"
+    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+    print(html)
+
 @login_required
 def features_quiz(request):
     images_and_answer = Image.get_random_images('components', 2)
