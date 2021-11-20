@@ -673,3 +673,7 @@ footer .next_btn:hover {
 .nav_bar li {
     float: right;
 }
+
+.customBackground > td {
+    background-color: #fbd623;
+}

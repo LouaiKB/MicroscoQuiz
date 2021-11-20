@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
-from biologicalquizapp.models import Question
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User 
+from django.dispatch import receiver 
 
 # Create your models here.
 class Profile(models.Model):
@@ -10,6 +11,15 @@ class Profile(models.Model):
     microscopy_score = models.IntegerField(default=0)
     level = models.CharField(max_length=100, default="beginner")
 
+    @receiver(post_save, sender=User)
+    def create_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_profile(sender, instance, **kwargs):
+        instance.profile.save()
+
     def get_total_score(self):
         return self.total_score
     
@@ -18,3 +28,8 @@ class Profile(models.Model):
     
     def get_microscopy_score(self):
         return self.microscopy_score
+    
+    def __str__(self) -> str:
+        return self.user.username
+
+    

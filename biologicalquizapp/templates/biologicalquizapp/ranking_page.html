@@ -1,0 +1,49 @@
+{% extends 'biologicalquizapp\base.html' %}
+{% load static %}
+{% block mycss %}
+    <link rel="stylesheet" href={% static 'biologicalquizapp\style.css' %}> 
+{% endblock mycss %}
+{% block content %}
+<a href="{% url 'home' %}"><img src={% static 'biologicalquizapp\MicroscoQuizz.png' %} style="position: relative" alt="..." class="logo-explore"></a>
+<section class="container" style="background-color: #2596be;">
+    {% comment %} <div class="row"> {% endcomment %}
+        {% comment %} <div class="col"> {% endcomment %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" data-sortable="true" data-field="name">Name</th>
+                        <th scope="col" data-sortable="true" data-field="score">Score</th>
+                        <th scope="col" data-sortable="true" data-field="microscore">microscopy quiz score</th>
+                        <th scope="col" data-sortable="true" data-field="compscore">components quiz score</th>
+                        <th scope="col" data-sortable="true" data-field="level">Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for profile in profiles %}
+                            {% if user.is_authenticated %}
+                                {% if user == profile.user %}
+                                    <tr class="customBackground">
+                                        <td>{{profile.user}}</td>
+                                        <td>{{profile.total_score}}</td>
+                                        <td>{{profile.component_score}}</td>
+                                        <td>{{profile.microscopy_score}}</td>
+                                        <td>{{profile.level}}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td>{{profile.user}}</td>
+                                        <td>{{profile.total_score}}</td>
+                                        <td>{{profile.component_score}}</td>
+                                        <td>{{profile.microscopy_score}}</td>
+                                        <td>{{profile.level}}</td>
+                                    </tr>
+                                {% endif %}
+
+                            {% endif %}
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock content %}

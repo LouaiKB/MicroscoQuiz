@@ -2,6 +2,7 @@ from random import shuffle
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Answer, Image, Question
+from users.models import Profile
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -161,3 +162,10 @@ def search(request):
         'metadatas': Image.get_metadatas()          
     }
     return render(request, 'biologicalquizapp\explore.html', context)
+
+@login_required
+def ranking_page(request):
+    context = {
+        'profiles': Profile.objects.all()
+    }
+    return render(request, 'biologicalquizapp\\ranking_page.html', context)
