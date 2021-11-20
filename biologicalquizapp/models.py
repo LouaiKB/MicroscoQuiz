@@ -37,16 +37,7 @@ class Image(models.Model) :
                     rand_field = choice(list_of_distinct_field)
                     list_of_specific_field = list(Image.objects.filter(components=rand_field))
                 result_list.append({rand_field: sample(list_of_specific_field, number)})
-                
-        # elif field == 'celltype':
-        #     list_of_distinct_field = [i['answer'] for i in Answer.objects.filter(question_id=2).values()]
-        #     for i in range(10):
-        #         list_of_specific_field = [0]
-        #         while len(list_of_specific_field) == 1:
-        #             rand_field = choice(list_of_distinct_field)
-        #             list_of_specific_field = list(Image.objects.filter(celltype=rand_field))
-        #         result_list.append({rand_field: sample(list_of_specific_field, number)})
-                                
+      
         return result_list
     
     @staticmethod
@@ -61,7 +52,7 @@ class Image(models.Model) :
 class Question(models.Model):
     question = models.CharField(max_length=255)
     type = models.CharField(max_length=255)
-    imagefield = models.CharField(max_length=255)
+    imagefield = models.ManyToManyField(Image)
     points = models.IntegerField()
     n_answer = models.IntegerField()
     n_image = models.IntegerField()
@@ -70,7 +61,7 @@ class Question(models.Model):
         return self.question
 
 class Answer(models.Model):
-    question_id = models.IntegerField()
+    question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
     answer = models.CharField(max_length=255)
     definition = models.TextField()
 
