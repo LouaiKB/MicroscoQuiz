@@ -109,7 +109,7 @@
                // window.location.replace(`${window.location.origin}/quizapp/microscopy_quiz/save`);
                 $.ajax({
                     type: 'post',
-                    url: `${url}`,
+                    url: `/save/`,
                     data: {'score': score, 'csrfmiddlewaretoken': csrftoken},
                     success: function() {
                         console.log("SUCESS! " + score);

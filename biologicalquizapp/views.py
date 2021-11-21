@@ -7,6 +7,7 @@ from users.models import Profile
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def home(request):
@@ -54,18 +55,52 @@ def microscopy_quiz(request):
     return render(request, 'biologicalquizapp\microscopy_quiz.html', context)
 
 @login_required
-def microscopy_quiz_result(request):
-
-
-
-@login_required
+@csrf_exempt
 def microscopy_quiz_save(request):
+    print("microsco quiz save")
     if request.is_ajax():
-        html = request.POST.data
+        print("inside ajax")
+        score_user = request.POST['score']
+        user = request.user
+        current_user = Profile.objects.filter(user=user.id)
+        score = current_user.get().microscopy_score + int(score_user)
+        total_score = current_user.get().total_score + score
+        current_user.update(microscopy_score = score)
+        current_user.update(total_score = total_score)
+
+        if total_score > 80 and total_score < 180:
+            current_user.update(level = 'intermediate')
+        elif total_score > 180:
+            current_user.update(level='advanced')
+
     else:
         html = "error"
-    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-    print(html)
+        print("ERROR: ", html)
+
+@login_required
+@csrf_exempt
+def features_quiz_save(request):
+    print("features quiz save")
+    if request.is_ajax():
+        print("inside ajaxxxxx")
+        score_user = request.POST['score']
+        user = request.user
+        current_user = Profile.objects.filter(user=user.id)
+        score = current_user.get().component_score + int(score_user)
+        total_score = current_user.get().total_score + score
+        current_user.update(component_score = score)
+        current_user.update(total_score = total_score)
+
+        if total_score > 80 and total_score < 180:
+            current_user.update(level = 'intermediate')
+        elif total_score > 180:
+            current_user.update(level='advanced')
+
+    else:
+        html = "error"
+        print("ERROR: ", html)
+
+
 
 @login_required
 def features_quiz(request):

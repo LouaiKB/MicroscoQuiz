@@ -21,7 +21,8 @@ class Profile(models.Model):
         instance.profile.save()
 
     def get_total_score(self):
-        return self.total_score
+        self.total_score = self.component_score + self.microscopy_score
+        self.update(self.total_score)
     
     def get_component_score(self):
         return self.component_score

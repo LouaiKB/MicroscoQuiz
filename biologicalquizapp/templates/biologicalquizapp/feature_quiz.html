@@ -79,6 +79,7 @@
             <button class="quit">Quit quizz</button>
         </div>
     </div>
+    {% csrf_token %}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script>
@@ -106,6 +107,18 @@
                 clearInterval(counterLine);
                 console.log('question completed');
                 showResultBox(20);
+                $.ajax({
+                    type: 'post',
+                    url: `/savef/`,
+                    data: {'score': score, 'csrfmiddlewaretoken': csrftoken},
+                    success: function() {
+                        console.log("SUCESS! " + score);
+                    },
+                    error: function() {
+                        console.log("noooo!!!!");
+                        // alert(errMsg);
+                    }
+                });
             }
         }
 
