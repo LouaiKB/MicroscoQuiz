@@ -1,8 +1,8 @@
-{% extends 'biologicalquizapp\base.html' %}
+{% extends 'biologicalquizapp/base.html' %}
 {% load static %}
 {% block mycss %}
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href={% static 'registration\css\style.css' %}>
+    <link rel="stylesheet" href={% static 'registration/css/style.css' %}>
 {% endblock mycss %}
 {% block content %}
 <section class="ftco-section">
@@ -10,7 +10,7 @@
 		<div class="row justify-content-center">
 			<div class="col-md-12 col-lg-10">
 				<div class="wrap d-md-flex">
-					<div class="img" style="background-image: url({% static 'registration\images\bg-1.jpg' %});"></div>
+					<div class="img" style="background-image: url({% static 'registration/images/bg-1.jpg' %});"></div>
 					<div class="login-wrap p-4 p-md-5">
 						<div class="d-flex">
 							<div class="w-100">
@@ -42,9 +42,9 @@
 	</div>
 </section>
 {% block script %}
-    <script src={% static 'registration\js\main.js' %}></script>
-    <script src={% static 'registration\js\jquery.min.js' %} ></script>
-    <script src={% static 'registration\js\popper.js' %}></script>
+    <script src={% static 'registration/js/main.js' %}></script>
+    <script src={% static 'registration/js/jquery.min.js' %} ></script>
+    <script src={% static 'registration/js/popper.js' %}></script>
 {% endblock script %}
 <script>
 

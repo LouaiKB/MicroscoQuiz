@@ -1,13 +1,13 @@
-{% extends 'biologicalquizapp\base.html' %}
+{% extends 'biologicalquizapp/base.html' %}
 {% load static %}
 {% block mycss %}
-    <link rel="stylesheet" href="{% static 'biologicalquizapp\homeStyle.css' %}">
-    <link rel="stylesheet" href={% static 'registration\css\style.css' %}> 
+    <link rel="stylesheet" href="{% static 'biologicalquizapp/homeStyle.css' %}">
+    <link rel="stylesheet" href={% static 'registration/css/style.css' %}> 
 {% endblock mycss %}
 {% block content %}
     <div class="hero">
         <nav class="nav-home">
-            <img src={% static 'biologicalquizapp\MicroscoQuizz.png' %} alt="MicroscoQuiz" class="menu-img">
+            <img src={% static 'biologicalquizapp/MicroscoQuizz.png' %} alt="MicroscoQuiz" class="menu-img">
             {% if user.is_authenticated %}
                 <ul>
                     <li><a href="{% url 'home' %}">Home</a></li>

@@ -15,18 +15,7 @@ def register_page(request):
             messages.success(request, f'Account created for {username}')
             return redirect('login')
     context = {"form": form}
-    return render(request, 'users\\register.html', context)
+    return render(request, 'users/register.html', context)
 
 def login_page(request):
-    # if request.method == "POST":
-    #     username = request.POST.get("username")
-    #     password = request.POST.get("password")
-    #     print("username " + username)
-    #     user = authenticate(request, username=username, password=password)
-    #     print(user)
-    #     if user is not None:
-    #         login(request, user)
-    #         messages.success(request, "you're logged in!")
-    #         return redirect('home')
-    # context = {}
-    return render(request, 'users\\login.html')
+    return render(request, 'users/login.html')

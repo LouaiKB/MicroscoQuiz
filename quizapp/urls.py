@@ -23,9 +23,9 @@ from users.log_form_view import LoginFormView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('login/', LoginView.as_view(template_name="users\\login.html"), name='login'),
+    # path('login/', LoginView.as_view(template_name="users//login.html"), name='login'),
     path('login/', LoginFormView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(template_name="users\\logout.html"), name='logout'),
+    path('logout/', LogoutView.as_view(template_name="users/logout.html"), name='logout'),
     path('register/', register_page, name='register'),
     path('', include("biologicalquizapp.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
