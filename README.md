@@ -55,8 +55,9 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
+        <li><a href="#conda">Create a miniconda environment</a></li>
         <li><a href="#clone">Clone the repo</a></li>
-        <li><a href="#Installation">Installation</a></li>
+        <li><a href="#Installation">Install all the dependecies</a></li>
       </ul>
     </li>
 </details>
@@ -96,8 +97,7 @@ when the installation is done activate the environment
 conda activate <env_name>
 ```
 
-### 2. <span id="clone">Clone the repo</span>  
-* Clone the repository locally
+### 2. <span id="clone">Clone the repoitory</span>  
 
   ```sh
   git clone https://github.com/LouaiKB/MicroscoQuiz.git
@@ -105,13 +105,11 @@ conda activate <env_name>
   cd MicroscoQuiz
   ```
 
-### 2. <span id="Installation">Install all the dependencies</span>
-
-* Install all the dependencies
+### 3. <span id="Installation">Install all the dependencies</span>
    ```sh
    conda install -n <env_name> requirements.txt
    ```
-### 3. Start the app
+### 4. Start the app
    ```sh
    python manage.py runserver
    ```
