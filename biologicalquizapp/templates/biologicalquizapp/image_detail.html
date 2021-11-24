@@ -23,12 +23,20 @@
 				<h5 class="card-title">{{object.celltype}} Captured by {{object.mode}}</h5>
 			{% endif %}
 			{% if object.components == "None" %}
-				<p class="card-text">{{object.description}}<br><br><strong>Organism: </strong>{{object.organism}}
+				{% if object.organism != "None" %}
+					<p class="card-text">{{object.description}}<br><br><strong>Organism: </strong>{{object.organism}}
+				{% endif %}
 				</p>
 			{% else %}
-				<p class="card-text">{{object.description}}<br><br><strong>Organism: </strong>{{object.organism}}
-				<br><strong>Component: </strong>{{object.components}}
-			</p>
+				{% if object.organism != "None" %}
+					<p class="card-text">{{object.description}}<br><br><strong>Organism: </strong>{{object.organism}}
+						<br><strong>Component: </strong>{{object.components}}
+					</p>
+				{% else %}
+					<p class="card-text">{{object.description}}<br>
+						<br><strong>Component: </strong>{{object.components}}
+					</p>
+				{% endif %}
 			{% endif %}
 			<p class="card-text"><small class="text-muted">{{object.doi}}</small></p>
 		</div>

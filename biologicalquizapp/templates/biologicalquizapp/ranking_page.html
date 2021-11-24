@@ -1,10 +1,10 @@
-{% extends 'biologicalquizapp\base.html' %}
+{% extends 'biologicalquizapp/base.html' %}
 {% load static %}
 {% block mycss %}
-    <link rel="stylesheet" href={% static 'biologicalquizapp\style.css' %}> 
+    <link rel="stylesheet" href={% static 'biologicalquizapp/style.css' %}> 
 {% endblock mycss %}
 {% block content %}
-<a href="{% url 'home' %}"><img src={% static 'biologicalquizapp\MicroscoQuizz.png' %} style="position: relative" alt="..." class="logo-explore"></a>
+<a href="{% url 'home' %}"><img src={% static 'biologicalquizapp/MicroscoQuizz.png' %} style="position: relative" alt="..." class="logo-explore"></a>
 <section class="container" style="background-color: #2596be;">
     {% comment %} <div class="row"> {% endcomment %}
         {% comment %} <div class="col"> {% endcomment %}

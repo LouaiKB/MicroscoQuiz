@@ -14,7 +14,7 @@ def home(request):
     context = {
         'title' : 'home'
     }
-    return render(request, 'biologicalquizapp\home.html', context)
+    return render(request, 'biologicalquizapp/home.html', context)
 
 @login_required
 def quiz_view(request):
@@ -23,7 +23,7 @@ def quiz_view(request):
         'question_1': Question.objects.filter(id=1).values()[0]['question'],
         'question_2': Question.objects.filter(id=2).values()[0]['question'],
     }
-    return render(request, 'biologicalquizapp\quiz.html', context)
+    return render(request, 'biologicalquizapp/quiz.html', context)
 
 @login_required
 def microscopy_quiz(request):
@@ -45,14 +45,14 @@ def microscopy_quiz(request):
 
         context['data'].append({
             'num': num,
-            'images': ["data\\" + str(i.name) + ".jpg" for i in element[list(element.keys())[0]]],
+            'images': ["data/" + str(i.name) + ".jpg" for i in element[list(element.keys())[0]]],
             'answers': answers,
             'correct_answer': correct_answer,
             'description': Answer.objects.filter(answer=correct_answer).values()[0]['definition']
         })
         num += 1
 
-    return render(request, 'biologicalquizapp\microscopy_quiz.html', context)
+    return render(request, 'biologicalquizapp/microscopy_quiz.html', context)
 
 @login_required
 @csrf_exempt
@@ -123,7 +123,7 @@ def features_quiz(request):
         
         context['data'].append({
             'num': num,
-            'images': ["data\\" + str(i.name) + ".jpg" for i in element[list(element.keys())[0]]],
+            'images': ["data/" + str(i.name) + ".jpg" for i in element[list(element.keys())[0]]],
             'answers': answers,
             'correct_answer': correct_answer,
             'description': Answer.objects.filter(answer=correct_answer).values()[0]['definition']
@@ -131,11 +131,11 @@ def features_quiz(request):
        
         num += 1
     
-    return render(request, 'biologicalquizapp\\feature_quiz.html', context)
+    return render(request, 'biologicalquizapp/feature_quiz.html', context)
 
 class ExplorePage(ListView):
     
-    template_name = 'biologicalquizapp\explore.html'
+    template_name = 'biologicalquizapp/explore.html'
     model = Image
     context_object_name = 'images'
     paginate_by = 10
@@ -168,7 +168,7 @@ def explore_page(request):
         'page_number': int(page),
     }
 
-    return render(request, 'biologicalquizapp\explore.html', context)
+    return render(request, 'biologicalquizapp/explore.html', context)
 
 
 class ExploreImage(DetailView):
@@ -211,11 +211,11 @@ def search(request):
         'images': images,
         'metadatas': Image.get_metadatas()          
     }
-    return render(request, 'biologicalquizapp\explore.html', context)
+    return render(request, 'biologicalquizapp/explore.html', context)
 
 @login_required
 def ranking_page(request):
     context = {
         'profiles': Profile.objects.all()
     }
-    return render(request, 'biologicalquizapp\\ranking_page.html', context)
+    return render(request, 'biologicalquizapp/ranking_page.html', context)

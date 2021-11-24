@@ -134,7 +134,7 @@
                     timeText.textContent = "Time Off"; //change the time text to time off
                     let allOptions = option_list.children.length; //getting all option items
                     for (let i = 0; i < allOptions; i++) {
-                        if (option_list.children[i].textContent.replace(//n/g, '').trim() == correct_answer) {
+                        if (option_list.children[i].textContent.replace(/\n/g, '').trim() == correct_answer) {
                             option_list.children[i].setAttribute("class", "option correct");
                             option_list.children[i].insertAdjacentHTML("beforeend", tick_icon);
                         }
@@ -155,7 +155,7 @@
             let correct_answer = data[que_count]['correct_answer'];
             let description = data[que_count]['description'];
             let userAnswer = answer.textContent;
-            userAnswer = userAnswer.replace(//n/g, '').trim();
+            userAnswer = userAnswer.replace(/\n/g, '').trim();
             if (userAnswer === correct_answer) {
                 score += 2;
                 answer.classList.add("correct");
@@ -191,7 +191,7 @@
 
                 // if answer is wrong then automatically select the correct answer
                 for (let i = 0; i < allOptions; i++) {
-                    if (option_list.children[i].textContent.replace(//n/g, '').trim() == correct_answer) {
+                    if (option_list.children[i].textContent.replace(/\n/g, '').trim() == correct_answer) {
                         option_list.children[i].setAttribute("class", "option correct");
                         option_list.children[i].insertAdjacentHTML("beforeend", tick_icon);
                     }

@@ -1,12 +1,12 @@
-{% extends 'biologicalquizapp\base.html' %}
+{% extends 'biologicalquizapp/base.html' %}
 {% load static %}
 {% block mycss %}
-    <link rel="stylesheet" href="{% static 'biologicalquizapp\style.css' %}"> 
+    <link rel="stylesheet" href="{% static 'biologicalquizapp/style.css' %}"> 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 {% endblock mycss %}
 {% block content %}
-    <a href="{% url 'home' %}"><img src={% static 'biologicalquizapp\MicroscoQuizz.png' %} alt="..." class="logo-explore"></a>
+    <a href="{% url 'home' %}"><img src={% static 'biologicalquizapp/MicroscoQuizz.png' %} alt="..." class="logo-explore"></a>
     <div class="wrapper">
         <form action="{% url 'search' %}" method="get" accept-charset="utf-8">
             <div class="search-input">
@@ -24,7 +24,7 @@
                     <article class="article_card">
                         <figure class="article_image">
                             {% with image.name|stringformat:"i"|add:".jpg" as image_path %}
-                                {% with 'data\\'|add:image_path as path %}
+                                {% with 'data/'|add:image_path as path %}
                                 <a href="{% url 'explore_image' pk=image.id %}"><img src="{% static path %}" alt="..." class="img-option"></a>
                                 {% endwith %}
                             {% endwith %}    
@@ -41,7 +41,11 @@
                             {% else %}
                                 <p class="card_excerpt"><span style="color: black"><strong>Component: </strong></span>{{image.components}}</p>
                             {% endif %}
-                            <p class="card_excerpt"><span style="color: black"><strong>Organism: </strong></span>{{image.organism}}</p>
+                            {% if image.organism == "None" %}
+                                <p class="card_excerpt"><span style="color: black"><strong>Organism: </strong></span>undefined organism</p>
+                            {% else %}
+                                <p class="card_excerpt"><span style="color: black"><strong>Organism: </strong></span>{{image.organism}}</p>
+                            {% endif %}
                             <p class="card_excerpt"><span style="color: black"><strong>DOI: </strong></span>{{image.doi}}</p>
                             <a href="{% url 'explore_image' pk=image.id %}"> <button class="description_btn">Read more</button></a>
                         </div>
@@ -72,7 +76,7 @@
                             </li>
                         {% endif %}
                     </ul>
-                <script src="{% static 'biologicalquizapp\js\paginatingScript.js' %}"></script>
+                <script src="{% static 'biologicalquizapp/js/paginatingScript.js' %}"></script>
             {% endif %}
         {% endif %}
 {% endblock content %}

@@ -5,6 +5,12 @@
     <link rel="stylesheet" href={% static 'registration/css/style.css' %}>
 {% endblock mycss %}
 {% block content %}
+{% if form.errors %}
+	<div class="alert alert-danger" role="alert">
+		<strong>Error!: </strong>Please enter a correct username and password. Note that both fields may be case-sensitive.
+	<span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+	</div>
+{% endif %}
 <section class="ftco-section">
 	<div class="container">
 		<div class="row justify-content-center">

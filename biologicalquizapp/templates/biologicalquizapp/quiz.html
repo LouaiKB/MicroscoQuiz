@@ -1,13 +1,13 @@
-{% extends 'biologicalquizapp\base.html' %}
+{% extends 'biologicalquizapp/base.html' %}
 {% load static %}
 {% block mycss %}
-    <link rel="stylesheet" href="{% static 'biologicalquizapp\style.css' %}"> 
+    <link rel="stylesheet" href="{% static 'biologicalquizapp/style.css' %}"> 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 {% endblock mycss %}
 {% block content %}
     <div class="choose-type">
-        <a href="{% url 'home' %}"><img src="{% static 'biologicalquizapp\MicroscoQuizz.png' %}" alt="microscoquizimg" class="microscoimg"></a>
+        <a href="{% url 'home' %}"><img src="{% static 'biologicalquizapp/MicroscoQuizz.png' %}" alt="microscoquizimg" class="microscoimg"></a>
         <p class="quiz-type">Choose a Quiz category<p>
     </div>
     <div class="question-chooser">
@@ -20,5 +20,5 @@
         {% comment %} <button class="quit-quiz">Quit quizz</button> {% endcomment %}
         <input type="button" value="Quit quiz" class="quit-quiz" onclick="location.href={% url 'home' %};">
     </div>
-    <script src={% static 'biologicalquizapp\js\script.js' %}></script>
+    <script src={% static 'biologicalquizapp/js/script.js' %}></script>
 {% endblock content %}
