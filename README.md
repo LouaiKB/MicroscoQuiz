@@ -83,9 +83,20 @@ The information for the images is retrieved from the Cell Image Library website.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy up and running follow these simple steps
+To get a local copy up and running make sure that you have installed **Anaconda** on your machine. If not check the link of installation: https://docs.anaconda.com/anaconda/install/index.html 
 
-### 1. <span id="clone">Clone the repo</span>  
+## 1. <span id="conda">Create a miniconda environment</span> 
+* Create a miniconda environment with a Python version 3.7
+
+```{sh}
+conda create --name <env_name> python=3.7
+```
+when the installation is done activate the environment
+```{sh}
+conda activate <env_name>
+```
+
+### 2. <span id="clone">Clone the repo</span>  
 * Clone the repository locally
 
   ```sh
@@ -94,20 +105,14 @@ To get a local copy up and running follow these simple steps
   cd MicroscoQuiz
   ```
 
-### 2. <span id="Installation">Installation</span>
+### 2. <span id="Installation">Install all the dependencies</span>
 
-* Install all the dependencies with ``pipenv``. If you don't have pipenv install it using
+* Install all the dependencies
    ```sh
-   pip install pipenv
-   ```
-* Now install all dependencies:
-   ```sh
-    pipenv install 
+   conda install -n <env_name> requirements.txt
    ```
 ### 3. Start the app
    ```sh
-   cd quizapp/
-
    python manage.py runserver
    ```
 
