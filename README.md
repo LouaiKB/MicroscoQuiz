@@ -97,7 +97,7 @@ when the installation is done activate the environment
 conda activate <env_name>
 ```
 
-### 2. <span id="clone">Clone the repoitory</span>  
+## 2. <span id="clone">Clone the repoitory</span>  
 
   ```sh
   git clone https://github.com/LouaiKB/MicroscoQuiz.git
@@ -105,11 +105,11 @@ conda activate <env_name>
   cd MicroscoQuiz
   ```
 
-### 3. <span id="Installation">Install all the dependencies</span>
+## 3. <span id="Installation">Install all the dependencies</span>
    ```sh
-   conda install -n <env_name> requirements.txt
+   pip install -r requirements.txt
    ```
-### 4. Start the app
+## 4. Start the app
    ```sh
    python manage.py runserver
    ```
